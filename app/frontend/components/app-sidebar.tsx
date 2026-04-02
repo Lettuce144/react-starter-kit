@@ -1,4 +1,4 @@
-import { Link } from "@inertiajs/react"
+import { Link, usePage } from "@inertiajs/react"
 import { BookOpen, Folder, LayoutGrid } from "lucide-react"
 
 import { NavFooter } from "@/components/nav-footer"
@@ -13,15 +13,15 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { dashboardPath } from "@/routes"
-import type { NavItem } from "@/types"
+import { adminDashboardPath } from "@/routes"
+import type { NavItem, CollectionConfig } from "@/types"
 
 import AppLogo from "./app-logo"
 
-const mainNavItems: NavItem[] = [
+let defaultNavItems: NavItem[] = [
   {
     title: "Dashboard",
-    href: dashboardPath(),
+    href: adminDashboardPath(),
     icon: LayoutGrid,
   },
 ]
@@ -40,13 +40,23 @@ const footerNavItems: NavItem[] = [
 ]
 
 export function AppSidebar() {
+  const { collections }: {collections: CollectionConfig[]} = usePage().props;
+
+  const navItems = defaultNavItems.concat(collections.map(col => ({
+    title: col.label_plural,
+    href: `/admin/${col.slug}`,
+    icon: LayoutGrid,
+  })))
+
+  console.log(collections)
+
   return (
     <Sidebar collapsible="icon" variant="inset">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <Link href={dashboardPath()} prefetch>
+              <Link href={adminDashboardPath()} prefetch>
                 <AppLogo />
               </Link>
             </SidebarMenuButton>
@@ -55,7 +65,7 @@ export function AppSidebar() {
       </SidebarHeader>
 
       <SidebarContent>
-        <NavMain items={mainNavItems} />
+        <NavMain items={navItems} />
       </SidebarContent>
 
       <SidebarFooter>

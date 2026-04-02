@@ -10,23 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_11_160811) do
-  create_table "sessions", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.string "user_agent"
-    t.string "ip_address"
+ActiveRecord::Schema[8.1].define(version: 2026_04_02_072832) do
+  create_table "posts", force: :cascade do |t|
+    t.text "content"
     t.datetime "created_at", null: false
+    t.text "excerpt"
+    t.boolean "featured"
+    t.datetime "published_at"
+    t.text "seo_desc"
+    t.string "seo_title"
+    t.string "slug"
+    t.string "status"
+    t.string "title"
     t.datetime "updated_at", null: false
+  end
+
+  create_table "sessions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "ip_address"
+    t.datetime "updated_at", null: false
+    t.string "user_agent"
+    t.integer "user_id", null: false
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "email", null: false
-    t.string "password_digest", null: false
-    t.boolean "verified", default: false, null: false
     t.datetime "created_at", null: false
+    t.string "email", null: false
+    t.string "name", null: false
+    t.string "password_digest", null: false
     t.datetime "updated_at", null: false
+    t.boolean "verified", default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

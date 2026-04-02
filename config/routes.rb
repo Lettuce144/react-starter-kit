@@ -14,7 +14,10 @@ Rails.application.routes.draw do
     resource :password_reset,     only: [:new, :edit, :create, :update]
   end
 
-  get :dashboard, to: "dashboard#index"
+  namespace :admin do
+    inertia "dashboard" => "dashboard/index"
+    CollectionRoutes.draw(self)
+  end
 
   namespace :settings do
     resource :profile, only: [:show, :update]

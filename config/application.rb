@@ -37,6 +37,10 @@ module ReactStarterKit
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.autoload_paths << Rails.root.join("app/collections")
+    config.to_prepare do
+      Dir[Rails.root.join("app/collections/**/*_collection.rb")].each { |f| require_dependency f }
+    end
 
     # Don't generate system test files.
     config.generators.system_tests = nil

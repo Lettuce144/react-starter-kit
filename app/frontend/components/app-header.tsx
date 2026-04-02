@@ -32,7 +32,7 @@ import {
 import { UserMenuContent } from "@/components/user-menu-content"
 import { useInitials } from "@/hooks/use-initials"
 import { cn } from "@/lib/utils"
-import { dashboardPath } from "@/routes"
+import { adminDashboardPath } from "@/routes"
 import type { BreadcrumbItem, NavItem } from "@/types"
 
 import AppLogo from "./app-logo"
@@ -41,7 +41,7 @@ import AppLogoIcon from "./app-logo-icon"
 const mainNavItems: NavItem[] = [
   {
     title: "Dashboard",
-    href: dashboardPath(),
+    href: adminDashboardPath(),
     icon: LayoutGrid,
   },
 ]
@@ -134,7 +134,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
           </div>
 
           <Link
-            href={dashboardPath()}
+            href={adminDashboardPath()}
             prefetch
             className="flex items-center space-x-2"
           >
